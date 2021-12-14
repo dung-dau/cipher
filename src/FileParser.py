@@ -1,15 +1,14 @@
 import unittest
 
 class FileParser:
+    contents = ""
     def __init__(self, *args):
-
         if len(args) != 1:
             raise ValueError
         else:
-            file = open(args[0], "r")
-            self.fileIsEmpty(file)
-            file.readLines()
-            file.close()
+            self.file = open(args[0], "r")
+            self.contents = self.file.readlines()
+            self.file.close()
 
     def fileIsEmpty(self, file):
         firstChar = file.read(1)
@@ -17,7 +16,14 @@ class FileParser:
             return True
         return False
 
+    def fileContainsNumbers(self):
+        return False
 
+    def fileContainsSpecialCharacters(self):
+        return False
+
+    def getContents(self):
+        return self.contents
 
 class FileParserTest(unittest.TestCase):
     def testBasicFile(self):
@@ -61,7 +67,7 @@ class FileParserTest(unittest.TestCase):
             self.assertEqual(False, True)
 
     def testExclamationMark(self):
-        testParser = FileParser("testFiles/ExclamationMark.txt")
+        testParser = FileParser("testFiles/Exclamation.txt")
         expected = True
         result = testParser.fileContainsSpecialCharacters()
         self.assertEqual(expected, result)
@@ -71,6 +77,19 @@ class FileParserTest(unittest.TestCase):
         expected = True
         result = testParser.fileContainsNumbers()
         self.assertEqual(expected, result)
+
+    def testGetContents(self):
+        testParser = FileParser("testFiles/Basic.txt")
+        expected = ["This is a basic file"]
+        result = testParser.getContents()
+        self.assertEqual(expected, result)
+
+    def testMultipleLineFile(self):
+        testParser = FileParser("testFiles/MultipleLines.txt")
+        expected = ["This is the first line.\n", "There is another line!\n", "This is the final line...."]
+        result = testParser.getContents()
+        self.assertEqual(expected, result)
+
 
 
 if __name__ == '__main__':

@@ -1,3 +1,3 @@
-class encryptable:
+class Encryptable:
 	def encrypt(self, contents):
 		pass
