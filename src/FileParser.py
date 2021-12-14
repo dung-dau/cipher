@@ -1,7 +1,6 @@
 import unittest
 
 class FileParser:
-    contents = ""
     def __init__(self, *args):
         if len(args) != 1:
             raise ValueError
@@ -89,8 +88,6 @@ class FileParserTest(unittest.TestCase):
         expected = ["This is the first line.\n", "There is another line!\n", "This is the final line...."]
         result = testParser.getContents()
         self.assertEqual(expected, result)
-
-
 
 if __name__ == '__main__':
     unittest.main() 
