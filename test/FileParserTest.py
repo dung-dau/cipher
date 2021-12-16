@@ -1,13 +1,12 @@
 import unittest
 
-class fileParserTest:
-
+class FileParserTest(unittest.TestCase):
 	def testBasicFile(self):
 		testParser = FileParser("testFiles/Basic.txt")
 		expected = not None
 		self.assertEqual(expected, testParser)
 
-	def testNonExistantFile:
+	def testNonExistantFile(self):
 		testParser = FileParser("testFiles/NonExistant.txt")
 		expected = None
 		self.assertEqual(expected, testParser)
@@ -36,3 +35,5 @@ class fileParserTest:
 		self.assertEqual(expected, result)
 
 
+if __name__ == '__main__':
+    unittest.main()	

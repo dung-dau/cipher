@@ -6,7 +6,7 @@ class FileParser:
             raise ValueError
         else:
             self.file = open(args[0], "r")
-            self.contents = self.file.readlines()
+            self.contents = self.file.read()
             self.file.close()
 
     def fileIsEmpty(self, file):
@@ -79,13 +79,13 @@ class FileParserTest(unittest.TestCase):
 
     def testGetContents(self):
         testParser = FileParser("testFiles/Basic.txt")
-        expected = ["This is a basic file"]
+        expected = "This is a basic file"
         result = testParser.getContents()
         self.assertEqual(expected, result)
 
     def testMultipleLineFile(self):
         testParser = FileParser("testFiles/MultipleLines.txt")
-        expected = ["This is the first line.\n", "There is another line!\n", "This is the final line...."]
+        expected = "This is the first line.\n", "There is another line!\n", "This is the final line...."
         result = testParser.getContents()
         self.assertEqual(expected, result)
 
