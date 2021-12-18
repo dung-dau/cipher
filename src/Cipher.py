@@ -39,6 +39,28 @@ class CipherTest(unittest.TestCase):
         expected = "Zrug"
         self.assertEqual(expected, result)
 
+    def testSingleWordEncrypt(self):
+        testCipher = Cipher("testFiles/Multiple.txt", 4)
+        testCipher.encrypt(testCipher.fileContents, 4)
+        result = testCipher.getResult()
+        expected = "Qypxmtpi asvh irgvctxmsr"
+        self.assertEqual(expected, result)
+
+    def testSingleNewLine(self):
+        testCipher = Cipher("testFiles/SingleNewLine.txt", 9)
+        testCipher.encrypt(testCipher.fileContents, 9)
+        result = testCipher.getResult()
+        expected = "\n"
+        self.assertEqual(expected, result)
+
+    def testMultipleNewLines(self):
+        testCipher = Cipher("testFiles/MultipleNewLines.txt", 7)
+        testCipher.encrypt(testCipher.fileContents, 7)
+        result = testCipher.getResult()
+        expected = "\n\n\n\n"
+        self.assertEqual(expected, result)
+
+
 class Cipher:
     def encrypt(self, text, shift):
         result = ""
@@ -61,7 +83,6 @@ class Cipher:
             self.result = self.encrypt(self.fileContents, args[1])
 
     def getResult(self):
-        print("Returning: "+self.result)
         return self.result
 
 if __name__ == '__main__':
