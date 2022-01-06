@@ -5,9 +5,10 @@ from .models import File
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the home page.")
+    file_list = File.objects.order_by('-name')[:]
+    output = ', '.join([f.name for f in file_list])
+    return HttpResponse(output)
 
 def file(request, name):
-	matched_file = File.objects.filter(name__startswith=name).first()
-
-	return HttpResponse(matched_file.contents)
+    matched_file = File.objects.filter(name__startswith=name).first()
+    return HttpResponse(matched_file.contents)
