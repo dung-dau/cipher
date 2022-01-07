@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'filemanager/css/style.css' %}"/>
+</head>
+<body>
+    {% if file_list %}
+        <ul>
+        {% for file in file_list %}
+            <li><a href="/filemanager/{{ file.name }}/">{{ file.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No files are available.</p>
+    {% endif %}
+</body>
+</html>

@@ -7,7 +7,11 @@ from .models import File
 def index(request):
     file_list = File.objects.order_by('-name')[:]
     output = ', '.join([f.name for f in file_list])
-    return HttpResponse(output)
+    template = loader.get_template('filemanager/index.html')
+    context = {
+        'file_list': file_list,
+    }
+    return HttpResponse(template.render(context, request))
 
 def file(request, name):
     matched_file = File.objects.filter(name__startswith=name).first()
