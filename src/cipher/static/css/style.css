@@ -1,0 +1,10 @@
+.index-page-content ul {
+	display: table;
+	margin: 0 auto;
+}
+
+.file-page-content {
+	margin-left: auto;
+	margin-right: auto;
+	width: 8em;
+}
