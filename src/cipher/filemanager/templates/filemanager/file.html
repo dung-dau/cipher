@@ -3,10 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+    <title>{{matched_file.name}}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'filemanager/css/style.css' %}">
 </head>
 <body>
-    <h1>Hello world!</h1>
+    <h1>{{matched_file.name}}.txt</h1>
+    <p> {{matched_file.contents}} </p>
 </body>
 </html>

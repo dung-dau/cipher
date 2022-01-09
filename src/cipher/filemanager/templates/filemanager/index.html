@@ -11,7 +11,7 @@
         Files
     </h1>
     {% if file_list %}
-        <ul>
+        <ul class="index-page-content">
         {% for file in file_list %}
             <li><a href="/filemanager/{{ file.name }}/">{{ file.name }}</a></li>
         {% endfor %}
