@@ -1,23 +1,35 @@
 h1 {
-    color: red;
-}
-
-p {
-    color: red;
+    text-align: center;
+    font-size: 38px
 }
 
 a {
     color: #000;
     text-decoration: none;
+    font-size: 19px;
 }
 
-.index-page-content ul {
+a:hover {
+	text-decoration: underline;
+}
+
+p {
+	text-align: center;
+	font-size: 19px;
+}
+
+.index-page-content {
     display: table;
     margin: 0 auto;
+    list-style-type: none;
+}
+
+.index-page-content li {
+	margin-bottom: 15px;
 }
 
 .file-page-content {
     margin-left: auto;
     margin-right: auto;
-    width: 8em;
+    width: 2em;
 }
