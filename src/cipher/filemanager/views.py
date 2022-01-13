@@ -1,22 +1,19 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.template import loader
+from django.views import generic
+from django.views.generic import DetailView
+
 from .models import File
 
-def index(request):
-    file_list = File.objects.order_by('-name')[:]
-    output = ', '.join([f.name for f in file_list])
-    template = loader.get_template('filemanager/index.html')
-    context = {
-        'file_list': file_list,
-    }
-    return HttpResponse(template.render(context, request))
+class IndexView(generic.ListView):
+    template_name = 'filemanager/index.html'
+    context_object_name = 'file_list'
 
-def file(request, name):
-    matched_file = File.objects.filter(name__startswith=name).first()
-    template = loader.get_template('filemanager/file.html')
-    context = {
-    	'matched_file': matched_file 
-    }
-    return HttpResponse(template.render(context, request))
-    # return HttpResponse(matched_file.contents)
+    def get_queryset(self):
+        return File.objects.all()
+
+class FileView(generic.DetailView):
+    model = File
+    template_name = 'filemanager/file.html'
+    slug_field = 'name'
