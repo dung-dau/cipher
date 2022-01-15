@@ -19,5 +19,10 @@
     {% else %}
         <p>No files are available.</p>
     {% endif %}
+    <form action="handleFile" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <input type="file" name="filename">
+        <input type="submit" value="Upload">
+    </form>
 </body>
 </html>
