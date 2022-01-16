@@ -1,8 +1,8 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-from django.template import loader
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.views import generic
 from django.views.generic import DetailView
+from django.urls import reverse
 
 from .models import File
 from .forms import UploadFileForm
@@ -20,13 +20,18 @@ class FileView(generic.DetailView):
     slug_field = 'name'
 
 def handleFile(request):
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            with open('some/file/name.txt', 'wb+') as destination:
-                for chunk in f.chunks():
-                    destination.write(chunk)
-            return HttpResponseRedirect('filemanager/')
-    else:
-        form = UploadFileForm()
-    return render(request, 'filemanager/index.html', {'form': form})
+    # if request.method == 'POST':
+    #     form = UploadFileForm(request.POST, request.FILES)
+    #     if form.is_valid():
+    #         with open('some/file/name.txt', 'wb+') as destination:
+    #             for chunk in f.chunks():
+    #                 destination.write(chunk)
+    #         return HttpResponseRedirect('filemanager/')
+    # else:
+    #     form = UploadFileForm()
+    # return render(request, 'filemanager/index.html', {'form': form})
+    file_name = request.FILES['filename'].name
+    file_contents = request.FILES['filename'].read()
+    # new_file = File(file_name, file_contents)
+    # new_file.save()
+    return HttpResponseRedirect(reverse('index'))
