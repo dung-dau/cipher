@@ -32,6 +32,6 @@ def handleFile(request):
     # return render(request, 'filemanager/index.html', {'form': form})
     file_name = request.FILES['filename'].name
     file_contents = request.FILES['filename'].read()
-    # new_file = File(file_name, file_contents)
-    # new_file.save()
+    new_file = File(name=file_name, contents=file_contents)
+    new_file.save()
     return HttpResponseRedirect(reverse('index'))
