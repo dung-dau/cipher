@@ -24,5 +24,10 @@
         <input type="file" name="filename">
         <input type="submit" value="Upload">
     </form>
+    <form action="removeFile" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="filename">
+        <input type="submit" value="Delete">
+    </form>
 </body>
 </html>

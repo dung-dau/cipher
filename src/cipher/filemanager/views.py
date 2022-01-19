@@ -20,18 +20,13 @@ class FileView(generic.DetailView):
     slug_field = 'name'
 
 def handleFile(request):
-    # if request.method == 'POST':
-    #     form = UploadFileForm(request.POST, request.FILES)
-    #     if form.is_valid():
-    #         with open('some/file/name.txt', 'wb+') as destination:
-    #             for chunk in f.chunks():
-    #                 destination.write(chunk)
-    #         return HttpResponseRedirect('filemanager/')
-    # else:
-    #     form = UploadFileForm()
-    # return render(request, 'filemanager/index.html', {'form': form})
     file_name = request.FILES['filename'].name
     file_contents = request.FILES['filename'].read()
-    new_file = File(name=file_name, contents=file_contents)
+    new_file = File(name=file_name, contents=file_contents.decode('utf-8'))
     new_file.save()
     return HttpResponseRedirect(reverse('index'))
+
+def removeFile(request):
+    file_name = request.FILES['filename'].name
+    file_to_delete = File.objects.get(name=file_name)
+    file_to_delete.delete()
