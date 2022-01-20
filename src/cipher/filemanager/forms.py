@@ -1,3 +1,4 @@
+from cProfile import label
 from django import forms
 
 class UploadFileForm(forms.Form):
@@ -7,3 +8,4 @@ class UploadFileForm(forms.Form):
 
 class DeleteFileForm(forms.Form):
     file_name = forms.CharField(label="file_name", max_length=500)
+    contents = forms.CharField(label="file_contents", max_length=500)
