@@ -27,10 +27,7 @@ def handleFile(request):
     return HttpResponseRedirect(reverse('filemanager:index'))
 
 def removeFile(request):
-#     print(request.GET.get('name', ""))
-    # form = DeleteFileForm(request.POST)
-    # the_name = form.cleaned_data.get('file_name')
-    # print(the_name)
-    return HttpResponseRedirect(reverse('index'))
-    # file_to_delete = File.objects.get(name=file_name)
-    # file_to_delete.delete()
+    file_name = request.POST.get('name', 'hello')
+    file_to_delete = File.objects.get(name=file_name)
+    file_to_delete.delete()
+    return HttpResponseRedirect(reverse('filemanager:index'))
