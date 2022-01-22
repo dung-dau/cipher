@@ -13,7 +13,7 @@ class FileParserTest(unittest.TestCase):
 
 	def testEmptyFile(self):
 		testParser = FileParser("testFiles/Empty.txt")
-		expected = True;
+		expected = True
 		result = testParser.fileIsEmpty()
 		self.assertEqual(expected, result)
 

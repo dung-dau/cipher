@@ -6,6 +6,9 @@ from django.urls import reverse
 
 from .models import File
 from .forms import DeleteFileForm, UploadFileForm
+# from .cipherAPI.Cipher import Cipher
+from django.core.files.storage import FileSystemStorage
+import os
 
 class IndexView(generic.ListView):
     template_name = 'filemanager/index.html'
@@ -22,12 +25,13 @@ class FileView(generic.DetailView):
 def handleFile(request):
     file_name = request.FILES['filename'].name
     file_contents = request.FILES['filename'].read()
+    # file_to_encrypt = Cipher(request.FILES['filename'].temporary_file_path, 3)
     new_file = File(name=file_name, contents=file_contents.decode('utf-8'))
     new_file.save()
     return HttpResponseRedirect(reverse('filemanager:index'))
 
 def removeFile(request):
-    file_name = request.POST.get('name', 'hello')
+    file_name = request.POST.get('name', '')
     file_to_delete = File.objects.get(name=file_name)
     file_to_delete.delete()
     return HttpResponseRedirect(reverse('filemanager:index'))
