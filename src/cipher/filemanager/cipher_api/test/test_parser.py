@@ -2,23 +2,7 @@ import unittest
 from parser import Parser
 
 class ParserTest(unittest.TestCase):
-    def testBasicFile(self):
-        try:
-            testParser = Parser("testFiles/Basic.txt")
-        except:
-            self.assertEqual(True, False)
-        else:
-            self.assertEqual(True, True)
-
-    def testNonExistantFile(self):
-        try:
-            testParser = Parser("testFiles/NonExistant.txt")
-        except FileNotFoundError:
-            self.assertEqual(True, True)
-        else:
-            self.assertEqual(False, True)
-
-    def testEmptyFile(self):
+    def testEmptyString(self):
         testParser = Parser("testFiles/Empty.txt")
         file = open("testFiles/Empty.txt")
         expected = True

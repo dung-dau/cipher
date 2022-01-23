@@ -4,6 +4,8 @@ from django.views import generic
 from django.views.generic import DetailView
 from django.urls import reverse
 
+from .cipher_api.parser import Parser
+
 from .models import File
 from .forms import DeleteFileForm, UploadFileForm
 # from .cipherAPI.Cipher import Cipher
@@ -26,6 +28,8 @@ def handleFile(request):
     file_name = request.FILES['filename'].name
     file_contents = request.FILES['filename'].read()
     # file_to_encrypt = Cipher(request.FILES['filename'].temporary_file_path, 3)
+    textParser = Parser(file_contents, 3)
+    print(textParser.getEncryptedText())
     new_file = File(name=file_name, contents=file_contents.decode('utf-8'))
     new_file.save()
     return HttpResponseRedirect(reverse('filemanager:index'))

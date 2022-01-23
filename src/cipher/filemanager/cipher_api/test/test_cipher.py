@@ -1,114 +1,98 @@
 import unittest
-from cipher import Cipher
+from parser.cipher import Cipher
 
 class CipherTest(unittest.TestCase):
-    maxDiff = None
-    def testConstructor(self):
-        try:
-            testCipher = Cipher("testFiles/Basic.txt", 3)
-        except:
-            self.assertEqual(True, False)
-        else:
-            self.assertEqual(True, True)
-
-    def testEmptyConstructor(self):
-        try:
-            testCipher = Cipher()
-        except ValueError:
-            self.assertEqual(True, True)
-        else:
-            self.assertEqual(False, True)
-
-    def testSingleArugmentsConstructor(self):
-        try:
-            testCipher = Cipher("testFiles/Basic.txt")
-        except ValueError:
-            self.assertEqual(True, True)
-        else:
-            self.assertEqual(False, True)
-
-    def testGettext(self):
-        testCipher = Cipher("testFiles/text.txt", 0)
-        text = testCipher.gettext()
-        expected = "text"
-        self.assertEqual(expected, text)
+    def testGetEncryptedText(self):
+        testFile = open("testFiles/Basic.txt")
+        testCipher = Cipher(testFile.read(), 0)
+        result = testCipher.getEncryptedText()
+        expected = "This is a basic file"
+        testFile.close()
+        self.assertEqual(expected, result)
 
     def testSingleWordEncrypt(self):
-        testCipher = Cipher("testFiles/Single.txt", 3)
-        text = testCipher.gettext()
+        testFile = open("testFiles/Single.txt")
+        testCipher = Cipher(testFile.read(), 3)
+        result = testCipher.getEncryptedText()
         expected = "Zrug"
-        self.assertEqual(expected, text)
+        self.assertEqual(expected, result)
+        testFile.close()
 
     def testMultipleWordEncrypt(self):
-        testCipher = Cipher("testFiles/Multiple.txt", 4)
-        text = testCipher.gettext()
+        testFile = open("testFiles/Multiple.txt")
+        testCipher = Cipher(testFile.read(), 4)
+        result = testCipher.getEncryptedText()
         expected = "Qypxmtpi asvh irgvctxmsr"
-        self.assertEqual(expected, text)
+        self.assertEqual(expected, result)
+        testFile.close()
 
     def testSingleNewLine(self):
-        testCipher = Cipher("testFiles/SingleNewLine.txt", 9)
-        text = testCipher.gettext()
+        testFile = open("testFiles/SingleNewLine.txt")
+        testCipher = Cipher(testFile.read(), 9)
+        result = testCipher.getEncryptedText()
         expected = "\n"
-        self.assertEqual(expected, text)
+        self.assertEqual(expected, result)
+        testFile.close()
 
     def testMultipleNewLines(self):
-        testCipher = Cipher("testFiles/MultipleNewLines.txt", 7)
-        text = testCipher.gettext()
+        testFile = open("testFiles/MultipleNewLines.txt")
+        testCipher = Cipher(testFile.read(), 7)
+        result = testCipher.getEncryptedText()
         expected = "\n\n\n\n"
-        self.assertEqual(expected, text)
+        self.assertEqual(expected, result)
+        testFile.close()
 
     def testMultipleLinesWithWords(self):
-        testCipher = Cipher("testFiles/MultipleLines.txt", 1)
-        text = testCipher.gettext()
+        testFile = open("testFiles/MultipleLines.txt")
+        testCipher = Cipher(testFile.read(), 1)
+        result = testCipher.getEncryptedText()
         expected = "Uijt jt uif gjstu mjof\nUifsf jt bopuifs mjof\nUijt jt uif gjobm mjof"
-        self.assertEqual(expected, text)
+        self.assertEqual(expected, result)
+        testFile.close()
 
     def testSingleSpecialCharacters(self):
-        testCipher = Cipher("testFiles/Exclamation.txt", 5)
-        text = testCipher.gettext()
+        testFile = open("testFiles/Exclamation.txt")
+        testCipher = Cipher(testFile.read(), 5)
+        result = testCipher.getEncryptedText()
         expected = "Ymnx nx fs jchqfrfynts knqj!"
-        self.assertEqual(expected, text)
-        
-    def testMultipleLinesSpecialCharacters(self):
-        testCipher = Cipher("testFiles/MultipleLinesCharacters.txt", 2)
-        text = testCipher.gettext()
-        expected = "Yjgp urgcmkpi cnqwf,\naqw rwpevwcvg\neqpuvcpvna-ykvj dqfa\nncpiwcig.\n"
-        self.assertEqual(expected, text)
+        self.assertEqual(expected, result)
+        testFile.close()
 
-    def testZeroShift(self):
-        testCipher = Cipher("testFiles/Basic.txt", 0)
-        text = testCipher.gettext()
-        expected = "This is a basic file"
-        self.assertEqual(expected, text)
+    def testMultipleLinesSpecialCharacters(self):
+        testFile = open("testFiles/MultipleLinesCharacters.txt")
+        testCipher = Cipher(testFile.read(), 2)
+        result = testCipher.getEncryptedText()
+        expected = "Yjgp urgcmkpi cnqwf,\naqw rwpevwcvg\neqpuvcpvna-ykvj dqfa\nncpiwcig.\n"
+        self.assertEqual(expected, result)
+        testFile.close()
 
     def testNumbers(self):
-        testCipher = Cipher("testFiles/Number.txt", 11)
-        text = testCipher.gettext()
+        testFile = open("testFiles/Number.txt")
+        testCipher = Cipher(testFile.read(), 11)
+        result = testCipher.getEncryptedText()
         expected = "2.03% zq dzwlc pypcrj qczx esp Dlslcl td pyzfrs ez azhpc esp hszwp zq Pfczap\n"
-        self.assertEqual(expected, text)
+        self.assertEqual(expected, result)
+        testFile.close()
 
-    def testMultipleLinesWithNumbers(self):
-        testCipher = Cipher("testFiles/MultipleLinesWithNumbers.txt", 6)
-        text = testCipher.gettext()
-        expected = "Znk Atozkj Yzgzky ul Gskxoig, oy g iuatzxe ruigzkj ot Tuxzn Gskxoig.\n"
-        expected += "Oz iutyoyzy ul 50 yzgzky, g lkjkxgr joyzxoiz, lobk sgpux atotiuxvuxgzkj\n"
-        expected += "zkxxozuxoky, 326 Otjogt xkykxbgzouty, gtj yusk sotux vuyykyyouty.\n"
-        expected += "Gz 3.8 sorrout ywagxk sorky (9.8 sorrout ywagxk qoruskzkxy), oz oy znk\n"
-        expected += "cuxrj'y znoxj- ux luaxzn-rgxmkyz iuatzxe he zuzgr gxkg."
-        self.assertEqual(expected, text)
+    # def testMultipleLinesWithNumbers(self):
+    #     testCipher = Cipher("testFiles/MultipleLinesWithNumbers.txt", 6)
+    #     text = testCipher.gettext()
+    #     expected = "Znk Atozkj Yzgzky ul Gskxoig, oy g iuatzxe ruigzkj ot Tuxzn Gskxoig.\n"
+    #     expected += "Oz iutyoyzy ul 50 yzgzky, g lkjkxgr joyzxoiz, lobk sgpux atotiuxvuxgzkj\n"
+    #     expected += "zkxxozuxoky, 326 Otjogt xkykxbgzouty, gtj yusk sotux vuyykyyouty.\n"
+    #     expected += "Gz 3.8 sorrout ywagxk sorky (9.8 sorrout ywagxk qoruskzkxy), oz oy znk\n"
+    #     expected += "cuxrj'y znoxj- ux luaxzn-rgxmkyz iuatzxe he zuzgr gxkg."
+    #     self.assertEqual(expected, text)
 
-    def testNegativeShift(self):
-        try:
-            testCipher = Cipher("testFiles/Basic.txt", -1)
-        except ValueError:
-            self.assertEqual(True, True)
-        else:
-            self.assertEqual(False, True)
+    # def testNegativeShift(self):
+    #     try:
+    #         testCipher = Cipher("testFiles/Basic.txt", -1)
+    #     except ValueError:
+    #         self.assertEqual(True, True)
+    #     else:
+    #         self.assertEqual(False, True)
 
 
     # def testVariousCapitalization(self):
 
     # def testIncorrectFileFormat(self)
-
-if __name__ == '__main__':
-    unittest.main() 
