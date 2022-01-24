@@ -1,5 +1,5 @@
 import unittest
-from parser.cipher import Cipher
+from cipher.cipher import Cipher
 
 class CipherTest(unittest.TestCase):
     def testGetEncryptedText(self):
