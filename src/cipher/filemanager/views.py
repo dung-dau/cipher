@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.views import generic
 from django.urls import reverse
 
-from .cipher_api.parser.parser import Parser
+from .cipher_api.cipher.cipher import Cipher
 
 from .models import File
 
@@ -21,7 +21,7 @@ class FileView(generic.DetailView):
 def handleFile(request):
     file_name = request.FILES['filename'].name
     file_contents = request.FILES['filename'].read().decode('utf-8')
-    textParser = Parser(str(file_contents), 3)
+    textParser = Cipher(str(file_contents), 3)
     new_file = File(name=file_name, contents=textParser.getEncryptedText())
     new_file.save()
     return HttpResponseRedirect(reverse('filemanager:index'))
