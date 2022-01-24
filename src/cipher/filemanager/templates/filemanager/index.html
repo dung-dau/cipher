@@ -21,11 +21,14 @@
     {% endif %}
     <form action="handleFile" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="file" name="filename">
+        <input type="file" name="filename" required>
+        <label for="shift">Shift</label>
+        <input type="number" name="shift" required>
         <input type="submit" value="Upload">
     </form>
     <form action="removeFile" method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        <label for="name">File to delete</label>
         <input type="text" name="name">
         <input type="submit" value="Delete">
     </form>

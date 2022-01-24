@@ -21,7 +21,10 @@ class FileView(generic.DetailView):
 def handleFile(request):
     file_name = request.FILES['filename'].name
     file_contents = request.FILES['filename'].read().decode('utf-8')
-    textParser = Cipher(str(file_contents), 3)
+    file_shift = int(request.POST.get("shift", 0))
+    print(file_shift)
+    print(type(file_shift))
+    textParser = Cipher(str(file_contents), file_shift)
     new_file = File(name=file_name, contents=textParser.getEncryptedText())
     new_file.save()
     return HttpResponseRedirect(reverse('filemanager:index'))
